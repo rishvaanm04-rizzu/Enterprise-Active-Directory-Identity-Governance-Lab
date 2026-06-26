@@ -84,14 +84,12 @@ I built and linked targeted Group Policy Objects (GPOs) to control what standard
 * **Policy:** `GPO_Standard_User_Restrictions`
 * **Configuration:** Enforced strict removable storage blocks under the Computer/User configuration paths to eliminate malware risk via external thumb drives.
 
-![GPO Removable Storage Policy Configuration](10_gpo_usb_restriction_enabled.png)
+![GPO Removable Storage Policy Configuration](10_gpo_removable_usb_restriction_enabled.png)
 
 ### Command Prompt Access Restriction
 * **Policy:** `GPO_Standard_User_Restrictions`
 * **Configuration:** Enforced "Prevent access to the command prompt" for the HR and Finance OUs. I explicitly set "Disable the command prompt script processing also" to **No**.
 * **Result:** This blocks the human user from executing manual terminal commands, but safely allows standard corporate logon scripts to run in the background.
-
-![GPO CMD Policy Configuration Screen](11_gpo_cmd_restriction_settings.png)
 
 ### Client-Side GPO Verification Check
 * **Audit Check:** Logged into the client machine as a standard user and attempted to execute `cmd.exe`. The system successfully intercepted the request and threw a hard administrative rejection message, verifying policy enforcement.
