@@ -16,7 +16,7 @@ To make sure testing wouldn't impact any live systems, I built everything inside
   * Server / DNS: `192.168.1.6`
   * Workstation: `192.168.1.50`
 * **Client Machine:** Windows 10 Enterprise, fully bound to the `corp.local` domain.
-
+  ![Domain Join](corploacal_domain_created.png)
 ---
 
 ## 👥 2. Organizational Structure & Access Control (RBAC)
