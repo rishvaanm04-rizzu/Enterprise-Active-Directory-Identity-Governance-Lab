@@ -16,6 +16,14 @@ To make sure testing wouldn't impact any live systems, I built everything inside
   * Server / DNS: `192.168.1.6`
   * Workstation: `192.168.1.50`
 * **Client Machine:** Windows 10 Enterprise, fully bound to the `corp.local` domain.
+* ### VirtualBox Network Isolation Configuration
+![VirtualBox Internal Network Layout](01_virtualbox_network_settings.png)
+
+### Domain Controller Static IP Setup
+![Server Static IP Configurations](02_server_static_ip_config.png)
+
+### Client Workstation Domain Join
+![Windows 10 Domain Binding Proof](03_client_dns_and_domain_join.png)
 ---
 
 ## 👥 2. Organizational Structure & Access Control (RBAC)
