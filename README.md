@@ -34,7 +34,7 @@ Instead of assigning access rights to individual employees, I set up Role-Based 
 I created a parent Organizational Unit (OU) called `Corp_Objects` and broke it down into standard departmental OUs:
 * `\IT` (Users: Ronaldo, Jota, Modric)
 * `\Finance-Staff` (Users: Messi, Reus, Ibrahimovic)
-* `\HR-Staff` (Users: Neymar, Santos, Haaland, Mbappe)
+* `\HR-Staff` (Users: Neymar, Haaland, Mbappe)
 * `\Disabled Users` (Quarantine folder for terminated staff)
 
 ### Active Directory Organizational Unit Structure
