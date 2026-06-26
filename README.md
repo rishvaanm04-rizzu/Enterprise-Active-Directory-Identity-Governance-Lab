@@ -32,7 +32,7 @@ Instead of assigning access rights to individual employees, I set up Role-Based 
 
 ### Active Directory Design
 I created a parent Organizational Unit (OU) called `Corp_Objects` and broke it down into standard departmental OUs:
-* `\IT` (Users: Ronaldo, Jota, Modric)
+* `\IT-Staff` (Users: Ronaldo, Jota, Modric)
 * `\Finance-Staff` (Users: Messi, Reus, Ibrahimovic)
 * `\HR-Staff` (Users: Neymar, Haaland, Mbappe)
 * `\Disabled Users` (Quarantine folder for terminated staff)
@@ -65,7 +65,7 @@ To test the security layout against everyday business changes, I simulated the t
 
 ### The Mover (Internal Department Transfer)
 * **Action:** Simulated an employee moving from Finance to HR.
-* **Audit Check:** Shifted their user account to the `HR-Staff` OU and updated their group membership (removed from Finance group, added to HR group). Verified on the client machine that their old Finance share access was immediately revoked, preventing **privilege creep**.
+* **Audit Check:** Shifted their user account to the `Finance-Staff` OU and updated their group membership (removed from HR group, added to Finance group). Verified on the client machine that their old HR share access was immediately revoked, preventing **privilege creep**.
 
 ![JML Mover Department Transfer](08_jml_mover_user_migration.png)
 
@@ -80,16 +80,28 @@ To test the security layout against everyday business changes, I simulated the t
 ## 🛡️ 4. Endpoint Hardening & Group Policy Enforcement
 I built and linked targeted Group Policy Objects (GPOs) to control what standard users could do on the network's workstations.
 
-### Attack Surface Reduction (Command Prompt Ban)
+### Attack Surface Reduction (Removable Media Restrictions)
+* **Policy:** `GPO_Standard_User_Restrictions`
+* **Configuration:** Enforced strict removable storage blocks under the Computer/User configuration paths to eliminate malware risk via external thumb drives.
+
+![GPO Removable Storage Policy Configuration](10_gpo_usb_restriction_enabled.png)
+
+### Command Prompt Access Restriction
 * **Policy:** `GPO_Standard_User_Restrictions`
 * **Configuration:** Enforced "Prevent access to the command prompt" for the HR and Finance OUs. I explicitly set "Disable the command prompt script processing also" to **No**.
 * **Result:** This blocks the human user from executing manual terminal commands, but safely allows standard corporate logon scripts to run in the background.
 
-### Environmental Enhancements
+![GPO CMD Policy Configuration Screen](11_gpo_cmd_restriction_settings.png)
+
+### Client-Side GPO Verification Check
+* **Audit Check:** Logged into the client machine as a standard user and attempted to execute `cmd.exe`. The system successfully intercepted the request and threw a hard administrative rejection message, verifying policy enforcement.
+
+![Endpoint CMD Access Restriction Error](12_endpoint_cmd_blocked_error.png)
+
+### Environmental Enhancements & Legal Banner
 * **Legal Banner:** Set up an interactive logon GPO that forces a strict corporate legal warning notice to appear before anyone can type their credentials.
 * **Privacy Hardening:** Configured local security settings to hide cached usernames from the logon screen, forcing users to type both their username and password manually to prevent shoulder-surfing.
 
-### Interactive Logon Legal Banner
 ![Interactive Logon Legal Banner](13_interactive_logon_legal_banner.png)
 
 ---
